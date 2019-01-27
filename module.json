@@ -1,0 +1,8 @@
+[
+	{
+		"Name": "murex-dev",
+		"Summary": "Provides useful aliases and functions for murex development",
+		"Version": "1.0",
+		"Source": "murex-dev.mx"
+	}
+]
