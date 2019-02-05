@@ -1,17 +1,30 @@
 if { which go } else {
-    err This module requires `go` to be in $PATH
+    err "This module requires `go` to be in $PATH"
 }
 
 if { $GOPATH } else {
     err 'This module requires `$GOPATH` to be set'
 }
 
+if { = `${os}` != `windows` } then {
+    func agent {
+        # Launch ssh-agent
+        ssh-agent -> head -n2 -> [ :0 ] -> prefix "export " -> source
+        ssh-add: @{g <!null> ~/.ssh/*.key} @{g <!null> ~/.ssh/*.pem}
+    }
+    
+} else {
+    func agent {
+        # On POSIX systems this would launch `ssh-agent`
+    }
+}
+
 func murex-dev {
     # Sets murex up so I can dev it easier
-    go install github.com/lmorg/murex/utils/docgen
+    go: install github.com/lmorg/murex/utils/docgen
     source {
-        cd $GOPATH/src/github.com/lmorg/murex
-        config: set shell prompt (murex-dev »)
+        cd: $GOPATH/src/github.com/lmorg/murex
+        config: set shell prompt (murex-dev» )
         agent
     }
         
@@ -19,12 +32,12 @@ func murex-dev {
         # Builds murex then launches it
         try {
             out: "Running docgen...."
-            docgen <!out> -debug -config gen/docgen.yaml
+            docgen: <!out> -debug -config gen/docgen.yaml
             out: "Formatting generated source...."
-            go <null> fmt @{g: builtins/docs/*.go}
-            go <null> fmt @{g: config/defaults/*.go}
+            go: <null> fmt @{g: builtins/docs/*.go}
+            go: <null> fmt @{g: config/defaults/*.go}
             out: "Compiling murex...."
-            go build github.com/lmorg/murex
+            go: build github.com/lmorg/murex
             out: "Starting...."
             ./murex
         }
@@ -34,19 +47,19 @@ func murex-dev {
         # Builds murex then runs the testing frameworks against the compiled binary
         try {
             out: "Running docgen...."
-            docgen <!out> -verbose -debug -config gen/docgen.yaml
+            docgen: <!out> -verbose -debug -config gen/docgen.yaml
             out: "Formatting generated source...."
-            go <null> fmt @{g: builtins/docs/*.go}
-            go <null> fmt @{g: config/defaults/*.go}
+            go: <null> fmt @{g: builtins/docs/*.go}
+            go: <null> fmt @{g: config/defaults/*.go}
             out: "Compiling murex...."
-            go build github.com/lmorg/murex
+            go: build github.com/lmorg/murex
             out: "Running test suites...."
-            go test ./...
+            go: test ./...
             ./test/regression_test.sh
             ./test/test_goos.mx
         }
         catch {
-            out "{RED}Testing failed :({RESET}"
+            out: "{RED}Testing failed :({RESET}"
         }
     }
 
@@ -54,7 +67,7 @@ func murex-dev {
     alias: mxdocgen=go install github.com/lmorg/murex/utils/docgen
 
     func mxbuiltin-src {
-        find $GOPATH/src/github.com/lmorg/murex/builtins/ -name *.go -exec grep -H (lang\.GoFunctions\["$ARGS[1]"\]) {} \; -> regexp s,$GOPATH/src/github.com/lmorg/murex/builtins/,,
+        find: $GOPATH/src/github.com/lmorg/murex/builtins/ -name *.go -exec grep -H (lang\.GoFunctions\["$ARGS[1]"\]) {} \; -> regexp: s,$GOPATH/src/github.com/lmorg/murex/builtins/,,
     }
 }
 
