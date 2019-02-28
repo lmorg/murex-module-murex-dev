@@ -43,6 +43,21 @@ func murex-dev {
         }
     }
 
+    func mxdebug {
+        # Builds murex then launches it
+        try {
+            out: "Running docgen...."
+            docgen: <!out> -debug -config gen/docgen.yaml
+            out: "Formatting generated source...."
+            go: <null> fmt @{g: builtins/docs/*.go}
+            go: <null> fmt @{g: config/defaults/*.go}
+            out: "Compiling murex...."
+            go: build github.com/lmorg/murex
+            out: "Starting...."
+            ./murex --inspect --debug
+        }
+    }
+
     func mxtest {
         # Builds murex then runs the testing frameworks against the compiled binary
         try {
@@ -68,6 +83,10 @@ func murex-dev {
 
     func mxbuiltin-src {
         find: $GOPATH/src/github.com/lmorg/murex/builtins/ -name *.go -exec grep -H (lang\.GoFunctions\["$ARGS[1]"\]) {} \; -> regexp: s,$GOPATH/src/github.com/lmorg/murex/builtins/,,
+    }
+
+    func mxgrep {
+        find: $GOPATH/src/github.com/lmorg/murex/ -name *.go -exec grep -H ($ARGS[1]) {} \; -> regexp: s,$GOPATH/src/github.com/lmorg/murex/builtins/,,
     }
 }
 
