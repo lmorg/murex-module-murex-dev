@@ -1,7 +1,3 @@
-if { which go } else {
-    err "This module requires `go` to be in $PATH"
-}
-
 if { $GOPATH } else {
     err 'This module requires `$GOPATH` to be set'
 }
@@ -82,10 +78,12 @@ func murex-dev {
     alias: mxdocgen=go install github.com/lmorg/murex/utils/docgen
 
     func mxbuiltin-src {
+        # Find which .go file contains the import for a murex builtin
         find: $GOPATH/src/github.com/lmorg/murex/builtins/ -name *.go -exec grep -H (lang\.GoFunctions\["$ARGS[1]"\]) {} \; -> regexp: s,$GOPATH/src/github.com/lmorg/murex/builtins/,,
     }
 
     func mxgrep {
+        # Grep through murex's source code
         find: $GOPATH/src/github.com/lmorg/murex/ -name *.go -exec grep -H ($ARGS[1]) {} \; -> regexp: s,$GOPATH/src/github.com/lmorg/murex/builtins/,,
     }
 }
