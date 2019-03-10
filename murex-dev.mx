@@ -84,7 +84,7 @@ func murex-dev {
 
     func mxgrep {
         # Grep through murex's source code
-        find: $GOPATH/src/github.com/lmorg/murex/ -name *.go -exec grep -H ($ARGS[1]) {} \; -> regexp: s,$GOPATH/src/github.com/lmorg/murex/builtins/,,
+        find: $GOPATH/src/github.com/lmorg/murex/ -name *.go -not -path $GOPATH/src/github.com/lmorg/murex/vendor -exec grep -H ($ARGS[1]) {} \; -> regexp: s,$GOPATH/src/github.com/lmorg/murex/,,
     }
 }
 

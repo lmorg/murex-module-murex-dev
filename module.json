@@ -2,7 +2,7 @@
     {
         "Name": "murex-dev",
         "Summary": "Provides useful aliases and functions for murex development",
-        "Version": "1.1",
+        "Version": "1.2",
         "Source": "murex-dev.mx",
         "Dependencies": {
             "Optional": [
