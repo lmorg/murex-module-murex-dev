@@ -1,5 +1,20 @@
 [
     {
+        "Name": "docgen",
+        "Summary": "Checks if docgen exists and if not compile it",
+        "Version": "1.0",
+        "Source": "docgen.mx",
+        "Dependencies": {
+            "Optional": [],
+            "Required": [
+                "go"
+            ],
+            "Platform": [
+                "posix"
+            ]
+        }
+    },
+    {
         "Name": "murex-dev",
         "Summary": "Provides useful aliases and functions for murex development",
         "Version": "1.2",

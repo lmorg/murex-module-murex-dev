@@ -1,0 +1,5 @@
+!if { which: docgen } then {
+    out Compiling docgen for the first time....
+    go install github.com/lmorg/murex/utils/docgen
+    murex-update-exe-list
+}
