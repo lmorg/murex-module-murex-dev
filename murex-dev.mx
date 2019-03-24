@@ -66,7 +66,7 @@ func murex-dev {
             go: build github.com/lmorg/murex
             out: "Running test suites...."
             go: test ./...
-            ./test/regression_test.sh
+            if { which timeout } then { ./test/regression_test.sh }
             ./test/test_goos.mx
         }
         catch {

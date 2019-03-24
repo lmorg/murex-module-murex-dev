@@ -17,18 +17,21 @@
     {
         "Name": "murex-dev",
         "Summary": "Provides useful aliases and functions for murex development",
-        "Version": "1.2",
+        "Version": "1.3",
         "Source": "murex-dev.mx",
         "Dependencies": {
             "Optional": [
                 "ssh-agent",
-                "ssh-add"
+                "ssh-add",
+                "timeout",
+                "printf"
             ],
             "Required": [
                 "go",
                 "docgen",
                 "find",
-                "grep"
+                "grep",
+                "which"
             ],
             "Platform": [
                 "posix"
