@@ -17,7 +17,7 @@ if { = `${os}` != `windows` } then {
 
 func murex-dev {
     # Sets murex up so I can dev it easier
-    go: install github.com/lmorg/murex/utils/docgen
+    #go: install github.com/lmorg/murex/utils/docgen
     source {
         cd: $GOPATH/src/github.com/lmorg/murex
         config: set shell prompt (murex-dev» )
@@ -28,7 +28,7 @@ func murex-dev {
         # Builds murex then launches it
         try {
             out: "Running docgen...."
-            docgen: <!out> -debug -config gen/docgen.yaml
+            docgen: <!out> -panic -config gen/docgen.yaml
             out: "Formatting generated source...."
             go: <null> fmt @{g: builtins/docs/*.go}
             go: <null> fmt @{g: config/defaults/*.go}
