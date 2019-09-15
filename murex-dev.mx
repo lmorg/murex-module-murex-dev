@@ -58,15 +58,16 @@ func murex-dev {
         # Builds murex then runs the testing frameworks against the compiled binary
         try {
             out: "Running docgen...."
-            docgen: <!out> -verbose -debug -config gen/docgen.yaml
+            docgen: <!out> -verbose -warning -config gen/docgen.yaml
             out: "Formatting generated source...."
             go: <null> fmt @{g: builtins/docs/*.go}
             go: <null> fmt @{g: config/defaults/*.go}
             out: "Compiling murex...."
             go: build github.com/lmorg/murex
             out: "Running test suites...."
-            go: test ./...
-            if { which timeout } then { ./test/regression_test.sh }
+            go: test ./... -count 10
+            ./murex --run-tests
+            #if { which timeout } then { ./test/regression_test.sh }
             ./test/test_goos.mx
         }
         catch {
