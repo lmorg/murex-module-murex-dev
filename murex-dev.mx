@@ -43,7 +43,7 @@ func murex-dev {
         # Builds murex then launches it
         try {
             out: "Running docgen...."
-            docgen: <!out> -debug -config gen/docgen.yaml
+            docgen: <!out> -warning -panic -verbose -config gen/docgen.yaml
             out: "Formatting generated source...."
             go: <null> fmt @{g: builtins/docs/*.go}
             go: <null> fmt @{g: config/defaults/*.go}
