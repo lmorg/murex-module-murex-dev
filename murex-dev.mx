@@ -3,19 +3,19 @@ if { $GOPATH } else {
 }
 
 if { = `${os}` != `windows` } then {
-    func agent {
+    function agent {
         # Launch ssh-agent
         ssh-agent -> head -n2 -> [ :0 ] -> prefix "export " -> source
         ssh-add: @{g <!null> ~/.ssh/*.key} @{g <!null> ~/.ssh/*.pem}
     }
     
 } else {
-    func agent {
+    function agent {
         # On POSIX systems this would launch `ssh-agent`
     }
 }
 
-func murex-dev {
+function murex-dev {
     # Sets murex up so I can dev it easier
     #go: install github.com/lmorg/murex/utils/docgen
     source {
@@ -24,7 +24,7 @@ func murex-dev {
         agent
     }
         
-    func mxbuild {
+    function mxbuild {
         # Builds murex then launches it
         try {
             out: "Running docgen...."
@@ -39,7 +39,7 @@ func murex-dev {
         }
     }
 
-    func mxdebug {
+    function mxdebug {
         # Builds murex then launches it
         try {
             out: "Running docgen...."
@@ -54,7 +54,7 @@ func murex-dev {
         }
     }
 
-    func mxtest {
+    function mxtest {
         # Builds murex then runs the testing frameworks against the compiled binary
         try {
             out: "Running docgen...."
@@ -78,12 +78,12 @@ func murex-dev {
     alias: mxinstall=go install github.com/lmorg/murex
     alias: mxdocgen=go install github.com/lmorg/murex/utils/docgen
 
-    func mxbuiltin-src {
+    function mxbuiltin-src {
         # Find which .go file contains the import for a murex builtin
         find: $GOPATH/src/github.com/lmorg/murex/builtins/ -name *.go -exec grep -H (lang\.GoFunctions\["$ARGS[1]"\]) {} \; -> regexp: s,$GOPATH/src/github.com/lmorg/murex/builtins/,,
     }
 
-    func mxgrep {
+    function mxgrep {
         # Grep through murex's source code
         find: $GOPATH/src/github.com/lmorg/murex/ -name *.go -not -path $GOPATH/src/github.com/lmorg/murex/vendor -exec grep -H ($ARGS[1]) {} \; -> regexp: s,$GOPATH/src/github.com/lmorg/murex/,,
     }
