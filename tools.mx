@@ -1,0 +1,24 @@
+!if { which: stringer } then {
+    out Compiling stringer for the first time....
+    go get golang.org/x/tools/cmd/stringer
+    go install golang.org/x/tools/cmd/stringer
+}
+
+!if { which: docgen } then {
+    out Compiling docgen for the first time....
+    go install github.com/lmorg/murex/utils/docgen
+    murex-update-exe-list
+}
+
+try {
+    !if { ls $GOPATH/src/github.com/lmorg/murex/.git/hooks/pre-commit } then {
+        ln -sv $GOPATH/src/github.com/lmorg/murex/test/pre-commit $GOPATH/src/github.com/lmorg/murex/.git/hooks/pre-commit
+    }
+
+    !if { ls $GOPATH/src/github.com/lmorg/murex/.git/hooks/pre-push } then {
+        ln -sv $GOPATH/src/github.com/lmorg/murex/test/pre-push $GOPATH/src/github.com/lmorg/murex/.git/hooks/pre-push
+    }
+
+}; catch {
+    err "Unable to install git hooks! This might be because your \$PATH isn't set correctly"
+}

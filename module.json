@@ -1,9 +1,9 @@
 [
     {
-        "Name": "docgen",
-        "Summary": "Checks if docgen exists and if not compile it",
-        "Version": "1.0",
-        "Source": "docgen.mx",
+        "Name": "tools",
+        "Summary": "Checks if docgen, stringer and git hooks exists and if not install them",
+        "Version": "2.0",
+        "Source": "tools.mx",
         "Dependencies": {
             "Optional": [],
             "Required": [
@@ -29,6 +29,7 @@
             "Required": [
                 "go",
                 "docgen",
+                "stringer",
                 "find",
                 "grep",
                 "which"
