@@ -50,7 +50,7 @@ function murex-dev {
             out: "Compiling murex...."
             go: build github.com/lmorg/murex
             out: "Starting...."
-            ./murex --inspect --debug
+            ./murex --debug
         }
     }
 
