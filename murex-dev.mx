@@ -39,6 +39,26 @@ function murex-dev {
         }
     }
 
+    function mxwasm {
+        # Builds WASM and launches web server
+        try {
+            out: "Building wasm binary...."
+            export: GOOS=js
+            export: GOARCH=wasm
+            go: build -o gen/website/wasm/murex.wasm
+            !export: GOOS
+            !export: GOARCH
+            
+            cp: -v ${go: env GOROOT}/misc/wasm/wasm_exec.js ./gen/website/wasm/
+
+            out: "Building web server...."
+            go: build -o wasmserver utils/wasmserver/main.go
+            
+            out: "Starting service...."
+            ./wasmserver:
+        }
+    }
+
     function mxdebug {
         # Builds murex then launches it
         try {
