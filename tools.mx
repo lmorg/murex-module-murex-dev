@@ -6,7 +6,8 @@
 
 !if { which: docgen } then {
     out Compiling docgen for the first time....
-    go install github.com/lmorg/murex/utils/docgen
+    #go install github.com/lmorg/murex/utils/docgen
+    go install github.com/lmorg/murex/utils/docgen@latest
     murex-update-exe-list
 }
 
