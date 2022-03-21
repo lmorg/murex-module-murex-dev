@@ -5,6 +5,7 @@ if { $GOPATH } else {
 if { = `${os}` != `windows` } then {
     function agent {
         # Launch ssh-agent
+        config: set proc strict-arrays false
         ssh-agent -> head -n2 -> [ :0 ] -> prefix "export " -> source
         ssh-add: @{g <!null> ~/.ssh/*.key} @{g <!null> ~/.ssh/*.pem}
     }
@@ -17,11 +18,17 @@ if { = `${os}` != `windows` } then {
 
 function murex-dev {
     # Sets murex up so I can dev it easier
-    #go: install github.com/lmorg/murex/utils/docgen
     source {
         cd: $GOPATH/src/github.com/lmorg/murex
+        export MUREX_DEV=true
         config: set shell prompt (murex-dev» )
+        config: set shell titlebar-func { $PWD->regexp (f|.*/(.*)$|) }
         agent
+    }
+
+    if { $TMUX } then {
+        tmux set-option allow-rename on
+        ({ESC}kdev{ESC}\)
     }
         
     function mxbuild {
