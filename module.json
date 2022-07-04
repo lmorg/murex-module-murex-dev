@@ -2,7 +2,7 @@
     {
         "Name": "tools",
         "Summary": "Checks if docgen, stringer and git hooks exists and if not install them",
-        "Version": "2.0",
+        "Version": "3.0",
         "Source": "tools.mx",
         "Dependencies": {
             "Optional": [],
@@ -17,7 +17,7 @@
     {
         "Name": "murex-dev",
         "Summary": "Provides useful aliases and functions for murex development",
-        "Version": "2.1",
+        "Version": "2.2",
         "Source": "murex-dev.mx",
         "Dependencies": {
             "Optional": [

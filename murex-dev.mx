@@ -35,7 +35,7 @@ function murex-dev {
         # Builds murex then launches it
         try {
             out: "Running docgen...."
-            docgen: <!out> -panic -config gen/docgen.yaml
+            docgen: -panic -config gen/docgen.yaml
             out: "Formatting generated source...."
             go: <null> fmt @{g: builtins/docs/*.go}
             go: <null> fmt @{g: config/defaults/*.go}
@@ -70,7 +70,7 @@ function murex-dev {
         # Builds murex then launches it
         try {
             out: "Running docgen...."
-            docgen: <!out> -warning -panic -verbose -config gen/docgen.yaml
+            docgen: -warning -panic -verbose -config gen/docgen.yaml
             out: "Formatting generated source...."
             go: <null> fmt @{g: builtins/docs/*.go}
             go: <null> fmt @{g: config/defaults/*.go}
@@ -84,17 +84,18 @@ function murex-dev {
     function mxtest {
         # Builds murex then runs the testing frameworks against the compiled binary
         try {
+            out: "Running go generate..."
+            go generate ./...
             out: "Running docgen...."
-            docgen: <!out> -verbose -warning -config gen/docgen.yaml
+            docgen: -warning -config gen/docgen.yaml
             out: "Formatting generated source...."
             go: <null> fmt @{g: builtins/docs/*.go}
             go: <null> fmt @{g: config/defaults/*.go}
             out: "Compiling murex...."
             go: build github.com/lmorg/murex
             out: "Running test suites...."
-            go: test ./... -count 10
-            ./murex --run-tests
-            #if { which timeout } then { ./test/regression_test.sh }
+            go: test ./... -count 10 --race -covermode=atomic
+            ./murex --load-modules -c 'g: behavioural/* -> foreach: f { source $f }; try {test: run *}'
             ./test/test_goos.mx
         }
         catch {
@@ -102,12 +103,12 @@ function murex-dev {
         }
     }
 
-    alias: mxinstall=go install github.com/lmorg/murex
-    alias: mxdocgen=go install github.com/lmorg/murex/utils/docgen
+    alias: mxinstall=go install -v github.com/lmorg/murex
+    alias: mxdocgen=go install -v github.com/lmorg/murex/utils/docgen
 
     function mxbuiltin-src {
         # Find which .go file contains the import for a murex builtin
-        find: $GOPATH/src/github.com/lmorg/murex/builtins/ -name *.go -exec grep -H (lang\.GoFunctions\["$ARGS[1]"\]) {} \; -> regexp: s,$GOPATH/src/github.com/lmorg/murex/builtins/,,
+        find: $GOPATH/src/github.com/lmorg/murex/builtins/ -name *.go -exec egrep -H (lang\.Define(Function|Method)\("$ARGS[1]".*\)) {} \; -> regexp: s,$GOPATH/src/github.com/lmorg/murex/builtins/,,
     }
 
     function mxgrep {
