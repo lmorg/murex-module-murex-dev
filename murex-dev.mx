@@ -108,7 +108,7 @@ function murex-dev {
 
     function mxbuiltin-src {
         # Find which .go file contains the import for a murex builtin
-        find: $GOPATH/src/github.com/lmorg/murex/builtins/ -name *.go -exec egrep -H (lang\.Define(Function|Method)\("$ARGS[1]".*\)) {} \; -> regexp: s,$GOPATH/src/github.com/lmorg/murex/builtins/,,
+        find: $GOPATH/src/github.com/lmorg/murex/builtins/ -name *.go -exec grep -E -H (lang\.Define(Function|Method)\("$ARGS[1]".*\)) {} \; -> regexp: s,$GOPATH/src/github.com/lmorg/murex/builtins/,,
     }
 
     function mxgrep {
