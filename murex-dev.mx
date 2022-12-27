@@ -21,8 +21,8 @@ function murex-dev {
     source {
         cd: $GOPATH/src/github.com/lmorg/murex
         export MUREX_DEV=true
-        config: set shell prompt (murex-dev» )
-        config: set shell titlebar-func { $PWD->regexp (f|.*/(.*)$|) }
+        config: set shell prompt %(murex-dev» )
+        config: set shell titlebar-func { $PWD->regexp %(f|.*/(.*)$|) }
         agent
     }
 
@@ -122,7 +122,7 @@ function mkmodule {
     # Create new murex module
 
     trypipe {
-        set name = $PARAMS[0]
+        name = $PARAMS[0]
         mkdir ~/.murex_modules/$name
         cd ~/.murex_modules/$name
 
