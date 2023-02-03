@@ -40,7 +40,7 @@ function murex-dev {
             go: <null> fmt @{g: builtins/docs/*.go}
             go: <null> fmt @{g: config/defaults/*.go}
             out: "Compiling murex...."
-            go: build github.com/lmorg/murex
+            go: build -tags pprof github.com/lmorg/murex
             out: "Starting...."
             ./murex
         }
