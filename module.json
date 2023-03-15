@@ -17,7 +17,7 @@
     {
         "Name": "murex-dev",
         "Summary": "Provides useful aliases and functions for murex development",
-        "Version": "3.1",
+        "Version": "4.0",
         "Source": "murex-dev.mx",
         "Dependencies": {
             "Optional": [
