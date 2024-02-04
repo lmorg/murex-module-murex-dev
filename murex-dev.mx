@@ -2,7 +2,7 @@ if { $GOPATH } else {
     err 'This module requires `$GOPATH` to be set'
 }
 
-if { = `${os}` != `windows` } then {
+!if { os windows } then {
     function agent {
         # Launch ssh-agent
         config set proc strict-arrays false
