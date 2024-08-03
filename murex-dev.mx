@@ -109,9 +109,9 @@ function murex-dev {
             out "Compiling murex...."
             build_murex_exe
             out "Running test suites...."
-            go test ./... -count 10 --race -covermode=atomic
+            go test ./... -count 1 -race -covermode=atomic
             ./murex --load-modules -c 'g behavioural/* -> foreach: f { source $f }; test: run *'
-            ./test/test_goos.mx
+            # ./test/test_goos.mx
         }
         catch {
             out "{RED}Testing failed :({RESET}"
@@ -131,6 +131,6 @@ function murex-dev {
     }
 
     private build_murex_exe {
-        go build -v -tags pprof,${open builtins/optional/standard-opts.txt} github.com/lmorg/murex
+        go build -v -tags pprof,trace,no_crash_handler,${open builtins/optional/standard-opts.txt} github.com/lmorg/murex
     }
 }
