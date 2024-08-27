@@ -34,6 +34,8 @@ function murex-dev {
     function mxbuild {
         # Builds murex then launches it
         try {
+            out "Running go generate...."
+            go generate ./...
             out "Running docgen...."
             docgen -panic -config gen/docgen.yaml
             out "Formatting generated source...."
@@ -131,6 +133,6 @@ function murex-dev {
     }
 
     private build_murex_exe {
-        go build -v -tags pprof,${open builtins/optional/standard-opts.txt} github.com/lmorg/murex
+        go build -v -tags pprof,trace,${open builtins/optional/standard-opts.txt} github.com/lmorg/murex
     }
 }
