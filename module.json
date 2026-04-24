@@ -1,20 +1,5 @@
 [
     {
-        "Name": "tools",
-        "Summary": "Checks if docgen, stringer and git hooks exists and if not install them",
-        "Version": "3.0",
-        "Source": "tools.mx",
-        "Dependencies": {
-            "Optional": [],
-            "Required": [
-                "go"
-            ],
-            "Platform": [
-                "posix"
-            ]
-        }
-    },
-    {
         "Name": "murex-dev",
         "Summary": "Provides useful aliases and functions for murex development",
         "Version": "4.1",
@@ -22,17 +7,10 @@
         "Dependencies": {
             "Optional": [
                 "ssh-agent",
-                "ssh-add",
-                "timeout",
-                "printf"
+                "ssh-add"
             ],
             "Required": [
-                "go",
-                "docgen",
-                "stringer",
-                "find",
-                "grep",
-                "which"
+                "go"
             ],
             "Platform": [
                 "posix"
